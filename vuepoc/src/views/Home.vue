@@ -1,20 +1,24 @@
 <template>
-  <div class="home">
-    <Adres />
-    <Adressen v-bind:adressen="adressen" />
+  <div class="mdl-grid">
+    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+      <AddAdres v-on:add-adres="addAdres" />
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+      <Adressen v-bind:adressen="adressen" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Adres from "@/components/Adres.vue";
-import Adressen from '@/components/Adressen.vue';
+import AddAdres from "@/components/AddAdres.vue";
+import Adressen from "@/components/Adressen.vue";
 import axios from "axios";
 
 export default {
   name: "Home",
   components: {
-    Adres,
+    AddAdres,
     Adressen
   },
   data() {
@@ -22,16 +26,44 @@ export default {
       adressen: []
     };
   },
-  async created() {
-    const res = await axios(
-      "https://backendvalidaties.azurewebsites.net/adressen"
-    );
-    if (res.status === 200) {
-      this.adressen = res.data;
-      console.log(`adressen opgehaald totaal ${this.adressen.length}`);
-    } else {
-      console.log("error getting the adressen..");
+  methods: {
+    async addAdres(nieuwAdres) {
+      try {
+        const adresjson = JSON.stringify(nieuwAdres);
+        console.log(adresjson);
+        
+        const res = await axios.post(
+          "https://backendvalidaties.azurewebsites.net/adres",
+          adresjson,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            }
+          }
+        );
+        console.log(res);
+        if(res.status){
+          this.getAdressen();
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+    async getAdressen() {
+      const res = await axios(
+        "https://backendvalidaties.azurewebsites.net/adressen"
+      );
+      if (res.status === 200) {
+        this.adressen = res.data;
+        console.log(`adressen opgehaald totaal ${this.adressen.length}`);
+      } else {
+        console.log("error getting the adressen..");
+      }
     }
+  },
+  created() {
+    this.getAdressen();
   }
 };
 </script>
