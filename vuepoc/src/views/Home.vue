@@ -1,12 +1,14 @@
 <template>
-  <div class="mdl-grid">
-    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+  <v-content>
+    <v-container>
       <AddAdres v-on:add-adres="addAdres" v-bind:foutmeldingen="foutmeldingen" />
-    </div>
-    <div class="mdl-cell mdl-cell--12-col">
-      <Adressen v-bind:adressen="adressen" />
-    </div>
-  </div>
+    </v-container>
+    <v-container fluid fill-height>
+      <v-layout child-flex>
+        <Adressen v-bind:adressen="adressen" />
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>

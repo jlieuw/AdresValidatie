@@ -1,28 +1,33 @@
 <template>
-  <div>
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">VuePOC</span>
-        <div class="mdl-layout-spacer"></div>
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <router-link to="/" class="mdl-navigation__link">Home</router-link>|
-          <router-link to="/about" class="mdl-navigation__link">About</router-link>
-        </nav>
-      </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">VuePOC</span>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href>Home</a>
-        <a class="mdl-navigation__link" href>Adressen</a>
-      </nav>
-    </div>
-  </div>
+  <v-app-bar app class="indigo white--text">
+    <v-toolbar-title class="headline text-uppercase">
+      <span>Vue</span>
+      <span class="font-weight-light">POC</span>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down" v-for="(link, index) in links" :key="link.route">
+      <v-btn text class="white--text" :to="link.route">{{ link.text }}</v-btn>
+      <v-divider inset vertical v-if="index != links.length-1"></v-divider>
+    </v-toolbar-items>
+  </v-app-bar>
 </template>
 
 <script>
 export default {
-  name: "Menu"
+  name: "Menu",
+  data() {
+    return {
+      links: [
+        { text: "Home", route: "/" },
+        { text: "About", route: "/About" }
+      ]
+    };
+  },
+  computed: {
+    last() {
+      return this.links.length - 1;
+    }
+  }
 };
 </script>
 

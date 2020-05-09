@@ -1,32 +1,29 @@
 <template>
-  <div>
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-      <thead>
-        <tr>
-          <th class="mdl-data-table__cell--non-numeric">Straat</th>
-          <th class="mdl-data-table__cell--non-numeric">Adresregel 1</th>
-          <th class="mdl-data-table__cell--non-numeric">Adresregel 2</th>
-          <th class="mdl-data-table__cell--non-numeric">Postcode</th>
-          <th>Huisnummer</th>
-          <th class="mdl-data-table__cell--non-numeric">Huisnummer toevoeging</th>
-          <th class="mdl-data-table__cell--non-numeric">Gemeente</th>
-          <th class="mdl-data-table__cell--non-numeric">Land</th>
-        </tr>
-      </thead>
-      <tbody v-bind:key="adres.id" v-for="adres in adressen">
-        <Adresregel v-bind:adres="adres" />
-      </tbody>
-    </table>
-  </div>
+  <v-data-table 
+  :headers="headers" 
+  :items="adressen" 
+  multi-sort 
+  class="elevation-1">
+  </v-data-table>
 </template>
 
 <script>
-import Adresregel from "./Adresregel.vue";
 
 export default {
   name: "Adressen",
-  components: {
-    Adresregel
+  data() {
+    return {
+      headers: [
+        { text: "Straat", value: "straat" },
+        { text: "Adresregel 1", value: "adresRegel1" },
+        { text: "Adresregel 2", value: "adresRegel2" },
+        { text: "Postcode", value: "postCode" },
+        { text: "Huisnummer", value: "huisnummer" },
+        { text: "Huisnummer toevoeging", value: "huisnummerToevoeging" },
+        { text: "Gemeente", value: "gemeente" },
+        { text: "Land", value: "land" }
+      ]
+    };
   },
   props: ["adressen"]
 };

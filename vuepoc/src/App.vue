@@ -1,22 +1,17 @@
 <template>
-  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <v-app>
     <Menu />
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view />
-      </div>
-    </main>
-  </div>
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import Menu from "@/components/layout/Menu.vue";
-
 export default {
   name: "App",
-  components: {
-    Menu
-  }
+  components: { Menu }
 };
 </script>
 
