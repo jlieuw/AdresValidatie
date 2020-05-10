@@ -11,7 +11,6 @@ Demo with Vue
 
 Todo:
  * Add state management with Vuex
- ** Component states
- ** Data persistence
+    * Component states
+    * Data persistence
  * Add unit tests (jest? mocha?)
- * Form validation (??)
